@@ -2,12 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
-    <ClCompile Include="src\Size.h" />
+    <ClCompile Include="src\core\Size.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game_map\GameMap.h" />
+    <ClInclude Include="src\game_map\Game.h" />
     <ClInclude Include="src\game_map\MapDrawer.h" />
     <ClInclude Include="src\Utils.h" />
-    <ClInclude Include="Snake.h" />
+    <ClInclude Include="src\snake\Snake.h" />
+    <ClInclude Include="src\core\GameObject.h" />
+    <ClInclude Include="Input.h" />
   </ItemGroup>
 </Project>

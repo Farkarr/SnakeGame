@@ -5,7 +5,7 @@
 #include <optional>
 #include <vector>
 #include <math.h>
-#include "Size.h"
+#include "../core/Size.h"
 #include "Utils.h"
 
 class MapDrawer

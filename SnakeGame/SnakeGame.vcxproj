@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp" />
-    <ClCompile Include="src\Size.h" />
+    <ClCompile Include="src\core\Size.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Snake.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="src\core\GameObject.h" />
+    <ClInclude Include="src\snake\Snake.h" />
     <ClInclude Include="src\game_map\MapDrawer.h" />
-    <ClInclude Include="src\game_map\GameMap.h" />
+    <ClInclude Include="src\game_map\Game.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

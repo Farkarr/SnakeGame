@@ -6,10 +6,12 @@
 #include <optional>
 #include <math.h>
 #include <conio.h> 
+#include <Windows.h> 
 
 #include "MapDrawer.h"
+#include "../core/GameObject.h"
 
-class GameMap
+class Game
 {
 private:
 	int _rows;
@@ -24,8 +26,9 @@ private:
 			{
 				if(func) func.value()(i, y);
 			}
-			std::cout << std::endl;
+			std::cout << "\n";
 		}
+		
 	}
 
 	std::vector<char> DrawMap(char borderSimbol, char innerSimbol) {
@@ -37,19 +40,27 @@ private:
 			if (horizontalBorder || verticalBorder) map.push_back(borderSimbol);
 			else map.push_back(innerSimbol);
 
-			});
+		});
 		return map;
 	}
+
+	void ClearScreen()
+	{
+		COORD cursorPosition;	
+		cursorPosition.X = 0;	
+		cursorPosition.Y = 0;	
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+	}	
 	
 	
 public:
 	std::vector<char> Map;
 
 public:
-	
-
 	void RenderMap() {
-		system("cls");
+		//ClearScreen();
+		//system("cls");
+		Map.clear();
 		LoopMap(_rows, _columns, [this](int currentRow, int currentColumn) {
 			int index = currentRow * _columns + currentColumn;
 			std::cout << Map[index];
@@ -61,7 +72,6 @@ public:
 		_columns = columns;
 		_borderSimbol = borderSimbol;
 		Map = DrawMap(borderSimbol, innerSimbol);
-		RenderMap();
 	}
 
 	void DrawInMap(int row, int column, char simbol) {
@@ -70,7 +80,7 @@ public:
 				int index = currentRow * _columns + currentColumn;
 				Map[index] = simbol;
 			}
-			});
+		});
 	}
 
 	void DrawInMap(int row, int column, std::vector<char> simbols, std::string orientation, std::string direction) {
@@ -105,6 +115,39 @@ public:
 			}
 			});
 	}
+
+	void DrawInMap(int row, int column, GameObject* gameObject, std::string orientation, std::string direction) {
+		LoopMap(_rows, _columns, [this, row, column, gameObject, orientation, direction](int currentRow, int currentColumn) {
+			if (row == currentRow && column == currentColumn) {
+				int index = 0;
+				int currentRowAux = currentRow;
+				int currentColumnAux = currentColumn;
+				index = currentRowAux * _columns + currentColumn;
+				//for (int i = 0; i < gameObject->Shape.size(); i++)
+				//{
+				//	/*if (orientation == "vertical") {
+						//index = currentRowAux * _columns + currentColumn;
+				//		if (direction == "top") {
+				//			currentRowAux--;
+				//		}
+				//		else if (direction == "bottom") {
+				//			currentRowAux++;
+				//		}
+				//	}
+				//	else if (orientation == "horizontal") {
+				//		index = currentRow * _columns + currentColumnAux;
+				//		if (direction == "left") {
+				//			currentColumnAux--;
+				//		}
+				//		else if (direction == "right") {
+				//			currentColumnAux++;
+				//		}
+				//	}*/
+				//}
+					Map[index] = gameObject->Shape[0];
+			}
+			});
+	}
 	
 	void SpawnMiddle(char innerSymbol) {
 		if (Map.size() == 0) return;
@@ -113,6 +156,13 @@ public:
 		int columnMiddle = _columns / 2;
 
 		DrawInMap(rowMiddle, columnMiddle, innerSymbol);
+	}
+
+	void Move(GameObject* gameObject) {
+		LoopMap(_rows, _columns, [this](int currentRow, int currentColumn) {
+				int index = currentRow * _columns + currentColumn;
+				Map[index] ;
+		});
 	}
 };
 
